@@ -20,11 +20,11 @@ function App() {
      //this code here...fires when the ap.js load
     db.collection("todos").orderBy("timestamp","desc").onSnapshot(snapshot => {
       // console.log(snapshot.docs.map(doc => doc.data()));//return array of object
-      setTodos(snapshot.docs.map(doc =>doc.data().todo));//bubble out array of string
-      
+      setTodos(snapshot.docs.map(doc =>({id:doc.id,todo:doc.data().todo})));//bubble out array of string
+           
     })
    }, []);
-
+ 
 
 
 
@@ -71,12 +71,12 @@ db.collection("todos").add({
       <ul>
         
         {todos.map(todo=>(
-          <Todo text={todo}/>
+          <Todo todo={todo}/>
          //<li>{todo}</li>//before making component of todo
 
         ))}
     
-      </ul>
+      </ul> 
 
     </div>
   );
